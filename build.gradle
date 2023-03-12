@@ -1,0 +1,43 @@
+plugins {
+    id "java"
+    id "idea"
+    id "org.springframework.boot" version "2.3.0.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+}
+
+ext {
+    fingBugsVersion = "3.0.2"
+    lombokVersion = "1.18.2"
+}
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter"
+
+    compileOnly "com.google.code.findbugs:jsr305:$fingBugsVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = "${project.name}.jar"
+}
